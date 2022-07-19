@@ -39,3 +39,14 @@ pub extern "C" fn hello_string_from_rust(ptr: i32, len: i32) {
         print_str(out_str.as_ptr(), out_str.len());
     }
 }
+
+#[no_mangle]
+pub extern "C" fn rule_match(ptr: i32, len: i32) -> i32 {
+    let slice = unsafe { slice::from_raw_parts(ptr as _, len as _) };
+    let json_string = str::from_utf8(&slice).unwrap();
+    if json_string.contains("is_malicious") {
+        1
+    } else {
+        0
+    }
+}

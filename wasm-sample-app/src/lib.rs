@@ -7,6 +7,7 @@ extern "C" {
     fn print_str(ptr: *const u8, len: usize);
     fn print_str2(ptr: *const u8, len: usize);
     fn increment_shared();
+    fn resolve_bool(ptr: *const u8, len: usize) -> i32;
 }
 
 // Define a string that is accessible within the wasm
@@ -16,7 +17,7 @@ static HELLO: &'static str = "Hello, World!";
 // Export a function named "hello_wasm". This can be called
 // from the embedder!
 #[no_mangle]
-pub extern "C" fn hello_wasm() {
+pub extern "C" fn hello_wasm() -> i32 {
     // Call the function we just imported and pass in
     // the offset of our string and its length as parameters.
     unsafe {
@@ -25,6 +26,7 @@ pub extern "C" fn hello_wasm() {
         increment_shared();
         increment_shared();
         print_str2(HELLO.as_ptr(), HELLO.len());
+        resolve_bool(HELLO.as_ptr(), HELLO.len())
     }
 }
 

@@ -10,5 +10,6 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
+palindrome = "0.1.1"
 
 

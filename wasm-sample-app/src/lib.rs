@@ -44,7 +44,7 @@ pub extern "C" fn hello_string_from_rust(ptr: i32, len: i32) {
 pub extern "C" fn r#match(ptr: i32, len: i32) -> i32 {
     let slice = unsafe { slice::from_raw_parts(ptr as _, len as _) };
     let json_string = str::from_utf8(&slice).unwrap();
-    if json_string.contains("is_malicious") {
+    if palindrome::contains_palindrome(json_string) {
         1
     } else {
         0
